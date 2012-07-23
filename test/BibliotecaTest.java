@@ -4,7 +4,8 @@ import org.junit.Test;
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 
-import static org.junit.Assert.assertEquals;
+import static org.hamcrest.CoreMatchers.equalTo;
+import static org.junit.Assert.assertThat;
 
 public class BibliotecaTest {
     private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
@@ -13,20 +14,21 @@ public class BibliotecaTest {
     @Before
     public void setUp() throws Exception {
         biblioteca = new Biblioteca(new PrintStream(outContent));
+
     }
 
     @Test
     public void shouldDisplayWelcomeMessage() throws Exception {
-        biblioteca.displayWelcomeMessage();
+        biblioteca.startApplication();
 
-        assertEquals("Welcome to Biblioteca", outContent.toString().trim());
+        assertThat(outContent.toString().split("\n")[0], equalTo("Welcome to Biblioteca"));
     }
 
     @Test
     public void shouldDisplayListOfMenuOptions() throws Exception {
-        biblioteca.displayListOfMenuOptions();
+        biblioteca.startApplication();
 
-        assertEquals("1) View all books", outContent.toString().trim());
+        assertThat(outContent.toString().split("\n")[1], equalTo("1) View all books"));
     }
 }
 

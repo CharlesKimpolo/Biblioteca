@@ -9,14 +9,20 @@ public class Biblioteca {
     }
 
     public static void main(String[] args){
-        new Biblioteca(System.out).displayWelcomeMessage();
+        new Biblioteca(System.out).startApplication();
     }
 
-    public void displayWelcomeMessage() {
+    public void startApplication() {
+        displayWelcomeMessage();
+        displayListOfMenuOptions();
+    }
+
+    private void displayWelcomeMessage() {
         out.println("Welcome to Biblioteca");
     }
 
-    public void displayListOfMenuOptions() {
+    private void displayListOfMenuOptions() {
         out.println("1) View all books");
     }
+
 }
