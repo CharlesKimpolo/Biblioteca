@@ -16,4 +16,7 @@ public class Biblioteca {
         out.println("Welcome to Biblioteca");
     }
 
+    public void displayListOfMenuOptions() {
+        out.println("1) View all books");
+    }
 }
