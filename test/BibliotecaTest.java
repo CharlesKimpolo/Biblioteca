@@ -1,6 +1,7 @@
 import org.junit.Before;
 import org.junit.Test;
 
+import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 
@@ -13,22 +14,34 @@ public class BibliotecaTest {
 
     @Before
     public void setUp() throws Exception {
-        biblioteca = new Biblioteca(new PrintStream(outContent));
-
+        biblioteca = new Biblioteca(new PrintStream(outContent), new ByteArrayInputStream("123".getBytes()));
     }
 
     @Test
     public void shouldDisplayWelcomeMessage() throws Exception {
         biblioteca.startApplication();
 
-        assertThat(outContent.toString().split("\n")[0], equalTo("Welcome to Biblioteca"));
+        assertThat(linesFromConsole()[0], equalTo("Welcome to Biblioteca"));
     }
 
     @Test
     public void shouldDisplayListOfMenuOptions() throws Exception {
         biblioteca.startApplication();
 
-        assertThat(outContent.toString().split("\n")[1], equalTo("1) View all books"));
+        assertThat(linesFromConsole()[1], equalTo("1) View all books"));
     }
+
+    private String[] linesFromConsole() {
+        return outContent.toString().split("\n");
+    }
+
+    @Test
+    public void shouldAllowUserToSelectMenuOption() throws Exception {
+        biblioteca.startApplication();
+
+        assertThat(linesFromConsole()[2], equalTo("123"));
+    }
+
+
 }
 
