@@ -45,7 +45,12 @@ public class BibliotecaTest {
     }
 
     private Biblioteca bibliotecaWithUserInput(String input) {
-        return new Biblioteca(new PrintStream(outContent), new ByteArrayInputStream(input.getBytes()));
+        return new Biblioteca(new PrintStream(outContent), new ByteArrayInputStream(input.getBytes())) {
+            @Override
+            protected void performOption(String userSelection) {
+                out.println(userSelection);
+            }
+        };
     }
 
 }

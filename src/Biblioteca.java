@@ -4,7 +4,7 @@ import java.util.Scanner;
 
 public class Biblioteca {
 
-    private final PrintStream out;
+    protected final PrintStream out;
     private final InputStream in;
 
     public Biblioteca(PrintStream out, InputStream in) {
@@ -19,9 +19,11 @@ public class Biblioteca {
     public void startApplication() {
         displayWelcomeMessage();
         displayListOfMenuOptions();
-        String userSelection = getUserSelection();
+        performOption(getUserSelection());
+    }
 
-        out.println(userSelection);
+    protected void performOption(String userSelection) {
+        // This space is intentionally blank
     }
 
     private void displayWelcomeMessage() {
