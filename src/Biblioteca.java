@@ -1,4 +1,6 @@
-import java.io.*;
+import java.io.InputStream;
+import java.io.PrintStream;
+import java.util.Scanner;
 
 public class Biblioteca {
 
@@ -10,7 +12,7 @@ public class Biblioteca {
         this.in = in;
     }
 
-    public static void main(String[] args){
+    public static void main(String[] args) {
         new Biblioteca(System.out, System.in).startApplication();
     }
 
@@ -33,14 +35,7 @@ public class Biblioteca {
     }
 
     private String getUserSelection() {
-        InputStreamReader streamReader = new InputStreamReader(in);
-        BufferedReader bufferedReader = new BufferedReader(streamReader);
-        String userSelection = null;
-        try {
-            userSelection = bufferedReader.readLine();
-        } catch (IOException e) {
-            throw new RuntimeException("Unexpected IO Error reading from InputStream " + in.toString(), e);
-        }
-        return userSelection;
+        Scanner scanner = new Scanner(in);
+        return scanner.nextLine();
     }
 }
