@@ -5,11 +5,11 @@ import java.util.Scanner;
 public class Biblioteca {
 
     protected final PrintStream out;
-    private final InputStream in;
+    private final Scanner scanner;
 
     public Biblioteca(PrintStream out, InputStream in) {
         this.out = out;
-        this.in = in;
+        this.scanner = new Scanner(in);
     }
 
     public static void main(String[] args) {
@@ -36,7 +36,6 @@ public class Biblioteca {
 
     private String getUserSelection() {
         out.println("Select an option");
-        Scanner scanner = new Scanner(in);
         return scanner.nextLine();
     }
 }
