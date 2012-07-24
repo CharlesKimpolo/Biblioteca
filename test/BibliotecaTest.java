@@ -12,6 +12,9 @@ public class BibliotecaTest {
     private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
     private Biblioteca biblioteca;
 
+    private static final String INVALID_OPTION = "123";
+    private static final String VALID_OPTION = "1";
+
     @Before
     public void setUp() throws Exception {
         biblioteca = bibliotecaWithUserInput(" ");
@@ -37,12 +40,23 @@ public class BibliotecaTest {
 
     @Test
     public void shouldAllowUserToSelectMenuOption() throws Exception {
-        biblioteca = bibliotecaWithUserInput("123");
+        biblioteca = bibliotecaWithUserInput(VALID_OPTION);
 
         biblioteca.startApplication();
+
         String[] lines = linesFromConsole();
         assertThat(lines[lines.length - 2], equalTo("Select an option"));
-        assertThat(lines[lines.length - 1], equalTo("123"));
+        assertThat(lines[lines.length - 1], equalTo(VALID_OPTION));
+    }
+
+    @Test
+    public void shouldValidateUserInput() throws Exception {
+        biblioteca = bibliotecaWithUserInput(INVALID_OPTION);
+
+        biblioteca.startApplication();
+
+        String[] lines = linesFromConsole();
+        assertThat(lines[lines.length - 1], equalTo("Select a valid option!!"));
     }
 
     private Biblioteca bibliotecaWithUserInput(String input) {

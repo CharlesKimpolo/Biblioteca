@@ -19,7 +19,15 @@ public class Biblioteca {
     public void startApplication() {
         displayWelcomeMessage();
         displayListOfMenuOptions();
-        performOption(getUserSelection());
+        validateUserInput(getUserSelection());
+   }
+
+    private void validateUserInput(String userSelection) {
+        if (!userSelection.equals("1")) {
+            out.println("Select a valid option!!");
+        } else {
+            performOption(userSelection);
+        }
     }
 
     protected void performOption(String userSelection) {
