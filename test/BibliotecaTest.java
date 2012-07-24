@@ -40,14 +40,13 @@ public class BibliotecaTest {
         biblioteca = bibliotecaWithUserInput("123");
 
         biblioteca.startApplication();
-
-        assertThat(linesFromConsole()[2], equalTo("123"));
+        assertThat(linesFromConsole()[2], equalTo("Select an option"));
+        assertThat(linesFromConsole()[3], equalTo("123"));
     }
 
     private Biblioteca bibliotecaWithUserInput(String input) {
         return new Biblioteca(new PrintStream(outContent), new ByteArrayInputStream(input.getBytes()));
     }
-
 
 }
 

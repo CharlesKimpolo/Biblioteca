@@ -19,7 +19,9 @@ public class Biblioteca {
     public void startApplication() {
         displayWelcomeMessage();
         displayListOfMenuOptions();
-        displayUserMenuOptionInput();
+        String userSelection = getUserSelection();
+
+        out.println(userSelection);
     }
 
     private void displayWelcomeMessage() {
@@ -30,11 +32,8 @@ public class Biblioteca {
         out.println("1) View all books");
     }
 
-    private void displayUserMenuOptionInput() {
-        out.println(getUserSelection());
-    }
-
     private String getUserSelection() {
+        out.println("Select an option");
         Scanner scanner = new Scanner(in);
         return scanner.nextLine();
     }
