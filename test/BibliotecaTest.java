@@ -14,7 +14,7 @@ public class BibliotecaTest {
 
     @Before
     public void setUp() throws Exception {
-        biblioteca = new Biblioteca(new PrintStream(outContent), new ByteArrayInputStream("123".getBytes()));
+        biblioteca = bibliotecaWithUserInput(" ");
     }
 
     @Test
@@ -37,9 +37,15 @@ public class BibliotecaTest {
 
     @Test
     public void shouldAllowUserToSelectMenuOption() throws Exception {
+        biblioteca = bibliotecaWithUserInput("123");
+
         biblioteca.startApplication();
 
         assertThat(linesFromConsole()[2], equalTo("123"));
+    }
+
+    private Biblioteca bibliotecaWithUserInput(String input) {
+        return new Biblioteca(new PrintStream(outContent), new ByteArrayInputStream(input.getBytes()));
     }
 
 
