@@ -40,8 +40,9 @@ public class BibliotecaTest {
         biblioteca = bibliotecaWithUserInput("123");
 
         biblioteca.startApplication();
-        assertThat(linesFromConsole()[2], equalTo("Select an option"));
-        assertThat(linesFromConsole()[3], equalTo("123"));
+        String[] lines = linesFromConsole();
+        assertThat(lines[lines.length - 2], equalTo("Select an option"));
+        assertThat(lines[lines.length - 1], equalTo("123"));
     }
 
     private Biblioteca bibliotecaWithUserInput(String input) {
