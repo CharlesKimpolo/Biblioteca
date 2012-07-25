@@ -17,55 +17,62 @@ public class BibliotecaTest {
 
     @Before
     public void setUp() throws Exception {
-        biblioteca = bibliotecaWithUserInput(" ");
+        biblioteca = bibliotecaWithUserInput("");
     }
 
     @Test
     public void shouldDisplayWelcomeMessage() throws Exception {
-        biblioteca.startApplication();
+        biblioteca.displayWelcomeMessage();
 
-        assertThat(linesFromConsole()[0], equalTo("Welcome to Biblioteca"));
+        assertThat(outputFromConsole(), equalTo("Welcome to Biblioteca"));
     }
 
     @Test
     public void shouldDisplayListOfMenuOptions() throws Exception {
-        biblioteca.startApplication();
+        biblioteca.displayListOfMenuOptions();
 
-        assertThat(linesFromConsole()[1], equalTo("1) View all books"));
-    }
-
-    private String[] linesFromConsole() {
-        return outContent.toString().split("\n");
+        assertThat(outputFromConsole(), equalTo("1) View all books"));
     }
 
     @Test
     public void shouldAllowUserToSelectMenuOption() throws Exception {
         biblioteca = bibliotecaWithUserInput(VALID_OPTION);
 
-        biblioteca.startApplication();
+        String input = biblioteca.getUserSelection();
 
-        String[] lines = linesFromConsole();
-        assertThat(lines[lines.length - 2], equalTo("Select an option"));
-        assertThat(lines[lines.length - 1], equalTo(VALID_OPTION));
+        assertThat(outputFromConsole(), equalTo("Select an option"));
+        assertThat(input, equalTo(VALID_OPTION));
     }
 
     @Test
     public void shouldValidateUserInput() throws Exception {
         biblioteca = bibliotecaWithUserInput(INVALID_OPTION);
 
-        biblioteca.startApplication();
+        biblioteca.validateUserInput(INVALID_OPTION);
 
-        String[] lines = linesFromConsole();
-        assertThat(lines[lines.length - 1], equalTo("Select a valid option!!"));
+        assertThat(outputFromConsole(), equalTo("Select a valid option!!"));
+    }
+
+    @Test
+    public void testUserSelectingValidOptionFromMenu() throws Exception {
+        biblioteca = bibliotecaWithUserInput(VALID_OPTION);
+        biblioteca.startApplication();
+        assertThat(outputFromConsole(), equalTo("Welcome to Biblioteca\n1) View all books\nSelect an option"));
+    }
+
+    @Test
+    public void testUserSelectingInvalidOptionFromMenu() throws Exception {
+        biblioteca = bibliotecaWithUserInput(INVALID_OPTION);
+        biblioteca.startApplication();
+        assertThat(outputFromConsole(), equalTo("Welcome to Biblioteca\n1) View all books\nSelect an option\nSelect a valid option!!"));
+    }
+
+    private String outputFromConsole() {
+        return outContent.toString().trim();
     }
 
     private Biblioteca bibliotecaWithUserInput(String input) {
-        return new Biblioteca(new PrintStream(outContent), new ByteArrayInputStream(input.getBytes())) {
-            @Override
-            protected void performOption(String userSelection) {
-                out.println(userSelection);
-            }
-        };
+        return new Biblioteca(new PrintStream(outContent), new ByteArrayInputStream(input.getBytes()));
     }
 
 }

@@ -20,29 +20,23 @@ public class Biblioteca {
         displayWelcomeMessage();
         displayListOfMenuOptions();
         validateUserInput(getUserSelection());
-   }
+    }
 
-    private void validateUserInput(String userSelection) {
+    public void validateUserInput(String userSelection) {
         if (!userSelection.equals("1")) {
             out.println("Select a valid option!!");
-        } else {
-            performOption(userSelection);
         }
     }
 
-    protected void performOption(String userSelection) {
-        // This space is intentionally blank
-    }
-
-    private void displayWelcomeMessage() {
+    public void displayWelcomeMessage() {
         out.println("Welcome to Biblioteca");
     }
 
-    private void displayListOfMenuOptions() {
+    public void displayListOfMenuOptions() {
         out.println("1) View all books");
     }
 
-    private String getUserSelection() {
+    public String getUserSelection() {
         out.println("Select an option");
         return scanner.nextLine();
     }
