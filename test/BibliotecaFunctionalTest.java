@@ -8,7 +8,8 @@ import java.io.PrintStream;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.junit.Assert.assertThat;
 
-public class BibliotecaTest {
+public class BibliotecaFunctionalTest {
+
     private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
     private Biblioteca biblioteca;
 
@@ -17,42 +18,21 @@ public class BibliotecaTest {
 
     @Before
     public void setUp() throws Exception {
-        biblioteca = bibliotecaWithUserInput(" ");
-
+        biblioteca = bibliotecaWithUserInput("userSelectedOption");
     }
 
     @Test
-    public void shouldDisplayWelcomeMessage() throws Exception {
-        biblioteca.displayWelcomeMessage();
-
-        assertThat(outputFromConsole(), equalTo("Welcome to Biblioteca"));
-    }
-
-    @Test
-    public void shouldDisplayListOfMenuOptions() throws Exception {
-        biblioteca.displayListOfMenuOptions();
-
-        assertThat(outputFromConsole(), equalTo("1) View all books"));
-    }
-
-
-    @Test
-    public void shouldAllowUserToSelectMenuOption() throws Exception {
+    public void testUserSelectingValidOptionFromMenu() throws Exception {
         biblioteca = bibliotecaWithUserInput(VALID_OPTION);
-
-        String input = biblioteca.getUserSelection();
-
-        assertThat(outputFromConsole(), equalTo("Select an option"));
-        assertThat(input, equalTo(VALID_OPTION));
+        biblioteca.startApplication();
+        assertThat(outputFromConsole(), equalTo("Welcome to Biblioteca\n1) View all books\nSelect an option"));
     }
 
     @Test
-    public void shouldValidateUserInput() throws Exception {
+    public void testUserSelectingInvalidOptionFromMenu() throws Exception {
         biblioteca = bibliotecaWithUserInput(INVALID_OPTION);
-
-        biblioteca.validateUserInput(INVALID_OPTION);
-
-        assertThat(outputFromConsole(), equalTo("Select a valid option!!"));
+        biblioteca.startApplication();
+        assertThat(outputFromConsole(), equalTo("Welcome to Biblioteca\n1) View all books\nSelect an option\nSelect a valid option!!"));
     }
 
     private String outputFromConsole() {
@@ -64,4 +44,3 @@ public class BibliotecaTest {
     }
 
 }
-
