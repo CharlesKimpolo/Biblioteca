@@ -19,13 +19,7 @@ public class Biblioteca {
     public void startApplication() {
         displayWelcomeMessage();
         displayListOfMenuOptions();
-        validateUserInput(getUserSelection());
-    }
-
-    public void validateUserInput(String userSelection) {
-        if (!userSelection.equals("1")) {
-            out.println("Select a valid option!!");
-        }
+        performOption(getValidInput());
     }
 
     public void displayWelcomeMessage() {
@@ -36,8 +30,20 @@ public class Biblioteca {
         out.println("1) View all books");
     }
 
-    public String getUserSelection() {
-        out.println("Select an option");
+    public String getUserSelection(String prompt) {
+        out.println(prompt);
         return scanner.nextLine();
+    }
+
+    protected void performOption(String userSelection) {
+        // TO BE IMPLEMENTED
+    }
+
+    public String getValidInput() {
+         String input = getUserSelection("Select an option");
+         while (!input.equals("1")) {
+            input = getUserSelection("Select a valid option!!");
+         }
+        return input;
     }
 }

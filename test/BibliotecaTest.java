@@ -35,24 +35,23 @@ public class BibliotecaTest {
         assertThat(outputFromConsole(), equalTo("1) View all books"));
     }
 
-
     @Test
     public void shouldAllowUserToSelectMenuOption() throws Exception {
         biblioteca = bibliotecaWithUserInput(VALID_OPTION);
 
-        String input = biblioteca.getUserSelection();
+        String input = biblioteca.getUserSelection("Select an option");
 
         assertThat(outputFromConsole(), equalTo("Select an option"));
         assertThat(input, equalTo(VALID_OPTION));
     }
 
     @Test
-    public void shouldValidateUserInput() throws Exception {
-        biblioteca = bibliotecaWithUserInput(INVALID_OPTION);
+    public void shouldKeepAskingForInputUntilItIsValid() throws Exception {
+        biblioteca = bibliotecaWithUserInput(INVALID_OPTION + "\n" + INVALID_OPTION + "\n" + VALID_OPTION);
+        String input = biblioteca.getValidInput();
 
-        biblioteca.validateUserInput(INVALID_OPTION);
-
-        assertThat(outputFromConsole(), equalTo("Select a valid option!!"));
+        assertThat(outputFromConsole(), equalTo("Select an option\nSelect a valid option!!\nSelect a valid option!!"));
+        assertThat(input, equalTo(VALID_OPTION));
     }
 
     private String outputFromConsole() {
