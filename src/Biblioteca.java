@@ -1,19 +1,30 @@
 import java.io.InputStream;
 import java.io.PrintStream;
+import java.util.List;
 import java.util.Scanner;
 
 public class Biblioteca {
 
     protected final PrintStream out;
+    private final Library library;
     private final Scanner scanner;
 
-    public Biblioteca(PrintStream out, InputStream in) {
+    public Biblioteca() {
+        this(System.out, System.in);
+    }
+
+    public Biblioteca(PrintStream printStream, InputStream inputStream) {
+        this(printStream, inputStream, Factory.library());
+    }
+
+    public Biblioteca(PrintStream out, InputStream in, Library library) {
         this.out = out;
+        this.library = library;
         this.scanner = new Scanner(in);
     }
 
     public static void main(String[] args) {
-        new Biblioteca(System.out, System.in).startApplication();
+        new Biblioteca().startApplication();
     }
 
     public void startApplication() {
@@ -36,14 +47,18 @@ public class Biblioteca {
     }
 
     protected void performOption(String userSelection) {
-        // TO BE IMPLEMENTED
+        List<Book> books = library.getBooks();
+        for (int i = 0; i < books.size(); i++) {
+            Book book = books.get(i);
+            out.println(i + 1 + ") " + book.getTitle() + " by " + book.getAuthor());
+        }
     }
 
     public String getValidInput() {
-         String input = getUserSelection("Select an option");
-         while (!input.equals("1")) {
+        String input = getUserSelection("Select an option");
+        while (!input.equals("1")) {
             input = getUserSelection("Select a valid option!!");
-         }
+        }
         return input;
     }
 }
